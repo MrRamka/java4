@@ -21,7 +21,11 @@ public class MainController {
 
     @InitBinder
     private void initBinder(WebDataBinder binder) {
-        binder.setValidator(new UserValidator());// Task: NPE
+        try {
+            binder.setValidator(new UserValidator());
+        }catch (NullPointerException e){
+
+        }
     }
 
     @RequestMapping

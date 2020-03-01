@@ -1,5 +1,7 @@
 package com.yabcompany.models;
 
+import com.yabcompany.validation.RussianKazanNumberValidation;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -22,6 +24,10 @@ public class User {
     @NotNull
     @Size(min = 8)
     private String password;
+
+    @NotNull
+    @RussianKazanNumberValidation
+    private String phoneNumber;
 
     public String getName() {
         return name;
@@ -55,6 +61,15 @@ public class User {
         this.age = age;
     }
 
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,12 +77,13 @@ public class User {
         User user = (User) o;
         return age == user.age &&
                 Objects.equals(name, user.name) &&
-                Objects.equals(email, user.email);
+                Objects.equals(email, user.email) &&
+                Objects.equals(phoneNumber, user.phoneNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, email, age);
+        return Objects.hash(name, email, age, phoneNumber);
     }
 
     @Override
@@ -76,6 +92,7 @@ public class User {
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", age=" + age +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
 }

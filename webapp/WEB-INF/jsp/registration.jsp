@@ -39,8 +39,13 @@
         <form:errors cssClass=" text-danger" path="age"/>
         <br>
 
+        <form:label path="phoneNumber">Phone</form:label>
+        <form:input type="text" path="phoneNumber"/>
+        <form:errors cssClass="text-danger" path="phoneNumber"/>
+        <br>
+
         <form:label path="password">Password</form:label>
-        <form:password path="password" />
+        <form:password path="password"/>
         <form:errors cssClass="text-danger" path="password"/>
         <br>
 

@@ -42,25 +42,4 @@ public class Config extends WebMvcConfigurerAdapter {
         return slr;
     }
 
-/*    @Bean
-    public ViewResolver viewResolver() {
-        FreeMarkerViewResolver resolver = new FreeMarkerViewResolver();
-        resolver.setCache(true);
-        resolver.setPrefix("/WEB-INF/freemarker/");
-        resolver.setSuffix(".ftlh");
-        resolver.setContentType("text/html; charset=UTF-8");
-        return resolver;
-    }
-
-    @Bean
-    public FreeMarkerConfigurer freemarkerConfig() throws IOException, TemplateException {
-        FreeMarkerConfigurationFactory factory = new FreeMarkerConfigurationFactory();
-        factory.setTemplateLoaderPath("WEB-INF/freemarker/");
-        factory.setDefaultEncoding("UTF-8");
-        FreeMarkerConfigurer result = new FreeMarkerConfigurer();
-        result.setConfiguration(factory.createConfiguration());
-        return result;
-    }*/
-
-
 }

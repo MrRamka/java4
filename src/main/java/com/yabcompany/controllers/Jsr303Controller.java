@@ -38,6 +38,7 @@ public class Jsr303Controller {
             redirectAttributes.addFlashAttribute("message", "User " + user.getName() + " has been added successfully");
             return "redirect:" + MvcUriComponentsBuilder.fromMappingName("JC#newUser").build();
         }
-
     }
+
+
 }

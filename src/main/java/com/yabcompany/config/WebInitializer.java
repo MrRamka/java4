@@ -1,27 +1,23 @@
 package com.yabcompany.config;
 
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-
-public class WebInitializer extends AbstractDispatcherServletInitializer {
+public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
-    protected WebApplicationContext createRootApplicationContext() {
-        return null;
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[]{RootConfig.class};
     }
 
     @Override
-    protected WebApplicationContext createServletApplicationContext() {
-        AnnotationConfigWebApplicationContext cxt = new AnnotationConfigWebApplicationContext();
-        cxt.register(Config.class);
-        return cxt;
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class[]{Config.class};
     }
 
     @Override
     protected String[] getServletMappings() {
-        return new String[] { "/" };
+        return new String[]{"/"};
     }
+
 
 }

@@ -23,6 +23,7 @@
 
         <!-- Spring -->
         <spring.version>5.1.13.RELEASE</spring.version>
+        <spring-data-jpa.version>2.1.4.RELEASE</spring-data-jpa.version>
 
         <!-- Other stuff dependencies -->
         <jackson.version>2.10.2</jackson.version>
@@ -33,8 +34,12 @@
         <!--Servlet-->
         <javax.servlet-api.version>2.5</javax.servlet-api.version>
 
-        <hibernate.validator.version>6.0.15.Final</hibernate.validator.version>
-        <java.validator.version>2.0.1.Final</java.validator.version>
+        <!-- Hibernate / JPA -->
+        <hibernate.version>5.4.1.Final</hibernate.version>
+
+        <!-- Bean validation -->
+        <hibernate-validator.version>6.0.14.Final</hibernate-validator.version>
+
     </properties>
 
     <dependencies>
@@ -65,6 +70,40 @@
             <version>${spring.version}</version>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.security</groupId>-->
+            <!--<artifactId>spring-security-core</artifactId>-->
+            <!--<version>4.0.3.RELEASE</version>-->
+        <!--</dependency>-->
+
+
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+            <type>jar</type>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>${spring-data-jpa.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
+            <version>3.1.0.RELEASE</version>
+        </dependency>
+
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
@@ -86,18 +125,33 @@
             <version>${jackson.version}</version>
             <scope>compile</scope>
         </dependency>
-        
+
         <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>${java.validator.version}</version>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.16</version>
         </dependency>
 
+
+        <!---->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate.version}</version>
+            <type>jar</type>
+        </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>${hibernate.validator.version}</version>
+            <version>${hibernate-validator.version}</version>
+            <type>jar</type>
         </dependency>
+
     </dependencies>
 
 </project>

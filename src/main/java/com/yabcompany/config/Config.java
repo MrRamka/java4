@@ -1,5 +1,6 @@
 package com.yabcompany.config;
 
+import org.jtwig.spring.JtwigViewResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,12 +22,24 @@ import java.util.Locale;
 public class Config extends WebMvcConfigurerAdapter {
 
     @Bean
-    public ViewResolver viewResolver() {
-        InternalResourceViewResolver resolver= new InternalResourceViewResolver();
+    public ViewResolver jspViewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix("/WEB-INF/jsp/");
         resolver.setSuffix(".jsp");
         resolver.setViewClass(JstlView.class);
         resolver.setRedirectContextRelative(false);
+        resolver.setOrder(10);
+        return resolver;
+    }
+
+    // ViewResolver for twig
+    @Bean
+    public ViewResolver twigViewResolver() {
+        JtwigViewResolver resolver = new JtwigViewResolver();
+        resolver.setPrefix("/WEB-INF/twig/");
+        resolver.setSuffix(".html.twig");
+        resolver.setRedirectContextRelative(false);
+        resolver.setOrder(0);
         return resolver;
     }
 

@@ -133,7 +133,7 @@
         </dependency>
 
 
-        <!---->
+        <!--Hibernate ORM-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
@@ -150,6 +150,19 @@
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validator.version}</version>
             <type>jar</type>
+        </dependency>
+
+        <!-- jTwig -->
+        <dependency>
+            <groupId>org.jtwig</groupId>
+            <artifactId>jtwig-spring</artifactId>
+            <version>5.87.0.RELEASE</version>
+        </dependency>
+        <!-- Thanks to bad dependency requirenments this must be included explicitly. -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.8.1</version>
         </dependency>
 
     </dependencies>

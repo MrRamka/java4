@@ -8,6 +8,7 @@ import com.yabcompany.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
@@ -19,6 +20,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/users-management")
 public class UserRestController {
+
+    private final String OK = "OK";
+    private final String DELETED = "User deleted";
+    private final String EQUAL_EMAIL = "User with this email already exist";
+    private final String DOES_NOT_EXIST = "User does not exist";
+
     @Autowired
     private UserRepository userRepository;
 
@@ -39,9 +46,12 @@ public class UserRestController {
 
     @JsonView(Views.Public.class)
     @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String createUser(@RequestBody RegistrationForm registrationForm) {
+    public ResponseEntity<String> createUser(@RequestBody RegistrationForm registrationForm) {
         MainUser mainUser = new MainUser();
         mainUser.setEmail(registrationForm.getEmail());
+        if (!registrationForm.getPassword().equals(registrationForm.getConfirmPassword())){
+            return ResponseEntity.ok().body(getStatusMessage("Passwords do not equals"));
+        }
         mainUser.setPassword(passwordEncoder.encode(registrationForm.getPassword()));
         mainUser.setCountry(registrationForm.getCountry());
         mainUser.setAgreement(registrationForm.getAgreement());
@@ -49,23 +59,31 @@ public class UserRestController {
         mainUser.setBirthday(registrationForm.getBirthday());
 
         try {
-           MainUser mainUser1 =  userRepository.save(mainUser);
-            return "{ \"user_id\": \"" + mainUser1.getId() + "\"";
+            MainUser mainUser1 = userRepository.save(mainUser);
+            return ResponseEntity.ok().body(getUserIdMessage(mainUser1.getId()));
         } catch (DataIntegrityViolationException d) {
-            return "{ \"message\": \"User with this email already exist\"}";
+            return ResponseEntity.ok().body(getStatusMessage(EQUAL_EMAIL));
         }
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    public String delete(@PathVariable("id") Long id){
-        String message = "";
+    public ResponseEntity<String> delete(@PathVariable("id") Long id) {
         try {
-            MainUser mainUser1 =  userRepository.findById(id).get();
+            MainUser mainUser1 = userRepository.findById(id).get();
             userRepository.delete(mainUser1);
-        }catch (NoSuchElementException e){
-            return "{ \"message\": \"User does not exist\"}";
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.ok().body(getStatusMessage(DOES_NOT_EXIST));
         }
-        return "{ \"message\": \"OK\"}";
+        return ResponseEntity.ok().body(DELETED);
     }
+
+    private String getStatusMessage(String messageText) {
+        return "{ \n\t\"message\": \"" + messageText + "\"\n}";
+    }
+
+    private String getUserIdMessage(long userId) {
+        return "{ \n\t\"user_id\": \"" + userId + "\"}";
+    }
+
 
 }

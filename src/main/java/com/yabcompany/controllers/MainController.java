@@ -75,7 +75,7 @@ public class MainController {
     @RequestMapping(value = "/users")
     public String list(ModelMap map) {
         map.put("users", userRepository.findAll());
-        return "users/list";
+        return "error: 404";
     }
 
     @RequestMapping(value = "/user_reg", method = RequestMethod.GET)

@@ -1,5 +1,6 @@
 package com.yabcompany.config;
 
+import com.yabcompany.components.ViewResolverErrorExtended;
 import org.jtwig.spring.JtwigViewResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import java.util.Locale;
 
@@ -28,7 +30,7 @@ public class Config extends WebMvcConfigurerAdapter {
         resolver.setSuffix(".jsp");
         resolver.setViewClass(JstlView.class);
         resolver.setRedirectContextRelative(false);
-        resolver.setOrder(10);
+        resolver.setOrder(100);
         return resolver;
     }
 
@@ -39,7 +41,19 @@ public class Config extends WebMvcConfigurerAdapter {
         resolver.setPrefix("/WEB-INF/twig/");
         resolver.setSuffix(".html.twig");
         resolver.setRedirectContextRelative(false);
-        resolver.setOrder(0);
+        resolver.setOrder(10);
+        return resolver;
+    }
+
+    @Bean
+    public ViewResolver errorExtViewResolver(){
+        ViewResolverErrorExtended resolver = new ViewResolverErrorExtended();
+        resolver.setPrefix("/WEB-INF/jsp/");
+        resolver.setSuffix(".jsp");
+        resolver.setErrorPrefix("/WEB-INF/jsp/errors/");
+        resolver.setErrorSuffix(".jsp");
+        resolver.setRedirectContextRelative(false);
+        resolver.setOrder(1);
         return resolver;
     }
 

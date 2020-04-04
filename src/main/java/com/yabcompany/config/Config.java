@@ -1,7 +1,12 @@
 package com.yabcompany.config;
 
 import com.yabcompany.components.ViewResolverErrorExtended;
+import com.yabcompany.twig_finctions.DatePastFunction;
+import org.jtwig.environment.EnvironmentConfiguration;
+import org.jtwig.environment.EnvironmentConfigurationBuilder;
+import org.jtwig.functions.JtwigFunction;
 import org.jtwig.spring.JtwigViewResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -34,19 +39,31 @@ public class Config extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
-    // ViewResolver for twig
+   /* // ViewResolver for twig
     @Bean
     public ViewResolver twigViewResolver() {
+        DatePastFunction datePastFunction = new DatePastFunction();
+        EnvironmentConfiguration configuration = EnvironmentConfigurationBuilder
+                .configuration()
+                .functions()
+                .add(datePastFunction)
+                .and()
+                .build();
         JtwigViewResolver resolver = new JtwigViewResolver();
+//        System.out.println(configuration.getFunctions());
+//        for(JtwigFunction f: configuration.getFunctions()){
+//            System.out.println(f.name());
+//        }
         resolver.setPrefix("/WEB-INF/twig/");
         resolver.setSuffix(".html.twig");
         resolver.setRedirectContextRelative(false);
         resolver.setOrder(10);
+
         return resolver;
-    }
+    }*/
 
     @Bean
-    public ViewResolver errorExtViewResolver(){
+    public ViewResolver errorExtViewResolver() {
         ViewResolverErrorExtended resolver = new ViewResolverErrorExtended();
         resolver.setPrefix("/WEB-INF/jsp/");
         resolver.setSuffix(".jsp");
@@ -68,5 +85,7 @@ public class Config extends WebMvcConfigurerAdapter {
         slr.setDefaultLocale(Locale.US);
         return slr;
     }
+
+    
 
 }

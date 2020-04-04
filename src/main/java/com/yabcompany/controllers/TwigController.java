@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDateTime;
+
 @Controller
 @RequestMapping("/twig")
 public class TwigController {
@@ -23,5 +25,11 @@ public class TwigController {
     public String users(ModelMap map) {
         map.put("users", userRepository.findAll());
         return "users";
+    }
+
+    @RequestMapping("/fun")
+    public String fun(ModelMap map){
+        map.put("post_date", LocalDateTime.now());
+        return "function";
     }
 }

@@ -2,6 +2,7 @@ package com.yabcompany.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.yabcompany.api.Views;
+import com.yabcompany.entityManager.UserEntityManagerCommands;
 import com.yabcompany.models.MainUser;
 import com.yabcompany.models.RegistrationForm;
 import com.yabcompany.repository.UserRepository;
@@ -26,6 +27,7 @@ public class UserRestController {
     private final String EQUAL_EMAIL = "User with this email already exist";
     private final String DOES_NOT_EXIST = "User does not exist";
 
+
     @Autowired
     private UserRepository userRepository;
 
@@ -35,13 +37,21 @@ public class UserRestController {
     @JsonView(Views.Public.class)
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<MainUser> getUsers() {
-        return (List<MainUser>) userRepository.findAll();
+        UserEntityManagerCommands userEntityManagerCommands = new UserEntityManagerCommands();
+        return userEntityManagerCommands.getAllMainUsers();
     }
 
     @JsonView(Views.Public.class)
     @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public MainUser getUser(@PathVariable("id") Long id) {
-        return userRepository.findById(id).get();
+        UserEntityManagerCommands userEntityManagerCommands = new UserEntityManagerCommands();
+        MainUser mainUser;
+        try {
+            mainUser = userEntityManagerCommands.getMainUserById(id);
+        }catch (NoSuchElementException ex){
+            return null;
+        }
+        return mainUser;
     }
 
     @JsonView(Views.Public.class)
@@ -49,7 +59,7 @@ public class UserRestController {
     public ResponseEntity<String> createUser(@RequestBody RegistrationForm registrationForm) {
         MainUser mainUser = new MainUser();
         mainUser.setEmail(registrationForm.getEmail());
-        if (!registrationForm.getPassword().equals(registrationForm.getConfirmPassword())){
+        if (!registrationForm.getPassword().equals(registrationForm.getConfirmPassword())) {
             return ResponseEntity.ok().body(getStatusMessage("Passwords do not equals"));
         }
         mainUser.setPassword(passwordEncoder.encode(registrationForm.getPassword()));

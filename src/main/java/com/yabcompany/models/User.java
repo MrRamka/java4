@@ -2,6 +2,7 @@ package com.yabcompany.models;
 
 import com.yabcompany.validation.RussianKazanNumberValidation;
 
+import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ public class User {
 
     @NotNull
     @Email
+    @Column(unique = true)
     private String email;
 
     @NotNull

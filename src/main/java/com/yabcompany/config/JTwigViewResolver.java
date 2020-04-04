@@ -18,9 +18,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @Configuration
 @ComponentScan("com.yabcompany.controllers")
 
-public class JTwigViewResolver implements BeanFactoryAware {
+public class JTwigViewResolver {
     private BeanFactory beanFactory;
 
+//    implements BeanFactoryAware
     @Bean
     public ViewResolver viewResolver() {
         JtwigViewResolver viewResolver = new JtwigViewResolver();
@@ -29,11 +30,11 @@ public class JTwigViewResolver implements BeanFactoryAware {
         viewResolver.setRedirectContextRelative(false);
         viewResolver.setCache(false);
         viewResolver.setOrder(1);
-        viewResolver.setRenderer(jTwigRenderer());
+//        viewResolver.setRenderer(jTwigRenderer());
         return viewResolver;
     }
 
-    @Bean
+    /*@Bean
     public JtwigRenderer jTwigRenderer() {
         return new JtwigRenderer(jTwigEnvironmentConfiguration());
     }
@@ -67,5 +68,5 @@ public class JTwigViewResolver implements BeanFactoryAware {
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         this.beanFactory = beanFactory;
-    }
+    }*/
 }

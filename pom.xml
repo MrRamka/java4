@@ -22,7 +22,7 @@
         <java.web.api.version>8.0</java.web.api.version>
 
         <!-- Spring -->
-        <spring.version>5.1.13.RELEASE</spring.version>
+        <spring.version>5.2.20.RELEASE</spring.version>
         <spring-data-jpa.version>2.1.9.RELEASE</spring-data-jpa.version>
 
         <!-- Other stuff dependencies -->
